@@ -1,8 +1,7 @@
 import { View, Image } from '@tarojs/components';
-import { useLoad } from '@tarojs/taro';
+import { useLoad, navigateTo } from '@tarojs/taro';
 import { useState } from 'react';
 import { AtButton, AtInput } from 'taro-ui';
-import './index.less';
 
 export default function Index() {
   const [text, setText] = useState<string | number>('');
@@ -38,8 +37,16 @@ export default function Index() {
         name="test"
         placeholder="测试"
       ></AtInput>
-      <AtButton type="primary" circle>
-        测试
+      <AtButton
+        type="primary"
+        circle
+        onClick={() => {
+          navigateTo({
+            url: '/pages/about/index',
+          });
+        }}
+      >
+        跳转页面
       </AtButton>
     </View>
   );
