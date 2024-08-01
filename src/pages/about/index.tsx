@@ -1,8 +1,19 @@
 import { View, Swiper, SwiperItem } from '@tarojs/components';
 import { AtButton } from 'taro-ui';
 import { navigateBack } from '@tarojs/taro';
+import { useState, useEffect } from 'react';
+import { request } from '@/utils';
 
 export default function About() {
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    request.get('/search/fileIn.txt').then((res) => {
+      console.log(res);
+      setData(JSON.stringify(res));
+    });
+  }, []);
+
   return (
     <View>
       <Swiper
@@ -24,6 +35,7 @@ export default function About() {
           <View className="bg-amber-300 h-96">3</View>
         </SwiperItem>
       </Swiper>
+      {data && <View>{data}</View>}
       <AtButton
         type="primary"
         onClick={() => {
