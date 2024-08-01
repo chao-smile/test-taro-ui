@@ -25,17 +25,16 @@ export default function Index() {
           <View className="at-article__p">这是文本段落。这是文本段落。</View>
           <View className="at-article__p">{text}</View>
           <Image
-            className="at-article__img"
+            className="at-article__img w-1/2"
             src="https://download.chaosmile.com/unnamed.png"
             mode="widthFix"
-            style={{ width: '50vw' }}
           />
         </View>
       </View>
       <AtInput
         value={text.toString()}
         onChange={setText}
-        style={{ width: '100vw', height: '50px' }}
+        className="w-1/2 mx-auto h-12"
         name="test"
         placeholder="测试"
       ></AtInput>
