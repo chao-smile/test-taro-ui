@@ -1,25 +1,72 @@
-import axios from 'axios';
+import Taro from '@tarojs/taro';
 
-// 创建一个 axios 实例
-const request = axios.create({
-  baseURL: 'https://notes.chaosmile.com/api',
-});
+const baseURL = 'https://notes.chaosmile.com/api';
+const timeout = 5000;
 
-// 添加响应拦截器
-request.interceptors.response.use(
-  (response) => {
-    // 如果响应状态码为 200，直接返回响应数据
-    if (response.status === 200 && response.data.code !== 200) {
-      return response.data;
-    } else {
-      // 如果响应状态码不为 200，抛出一个错误
-      throw new Error(`请求失败，状态码：${response.status}`);
-    }
-  },
-  (error) => {
-    // 处理请求错误的情况
-    return Promise.reject(error);
-  },
-);
+const handleErrors = (error) => {
+  Taro.showToast({
+    title: `${error.message || error.statusCode}`,
+    icon: 'error',
+    duration: 2000,
+  });
+  return Promise.reject(error);
+};
 
-export default request;
+const requestInterceptor = (options) => {
+  const token = Taro.getStorageSync('token');
+  if (!token) {
+    Taro.redirectTo({
+      url: '/pages/login/index',
+    });
+    throw new Error('当前登录已过期');
+  }
+  options.url = baseURL + options.url;
+  options.header = {
+    ...options.header,
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+  return options;
+};
+
+// 响应拦截器
+const responseInterceptor = (response) => {
+  if (response.statusCode !== 200) {
+    throw new Error(`错误: ${response.statusCode}`);
+  }
+  return response.data;
+};
+
+const request = async (options) => {
+  try {
+    const finalOptions = requestInterceptor(options);
+    const res = await Taro.request({
+      ...finalOptions,
+      timeout,
+      fail: handleErrors,
+    });
+    return responseInterceptor(res);
+  } catch (error) {
+    return handleErrors(error);
+  }
+};
+
+const get = (url, data = {}, options = {}) => {
+  return request({
+    ...options,
+    url,
+    data,
+    method: 'GET',
+  });
+};
+
+const post = (url, data = {}, options = {}) => {
+  return request({
+    ...options,
+    url,
+    data,
+    method: 'POST',
+  });
+};
+
+export { get, post };

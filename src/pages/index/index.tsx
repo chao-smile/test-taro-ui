@@ -1,5 +1,5 @@
 import { View, Image } from '@tarojs/components';
-import { useLoad, navigateTo } from '@tarojs/taro';
+import { useLoad, navigateTo, setStorageSync } from '@tarojs/taro';
 import { useState } from 'react';
 import { AtButton, AtInput } from 'taro-ui';
 
@@ -41,6 +41,7 @@ export default function Index() {
         type="primary"
         circle
         onClick={() => {
+          setStorageSync('token', '123');
           navigateTo({
             url: '/pages/about/index',
           });

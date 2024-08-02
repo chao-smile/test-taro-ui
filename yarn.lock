@@ -2216,11 +2216,6 @@
     acorn-walk "^8.0.0"
     lodash "^4.17.21"
 
-"@tarojs/plugin-http@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@tarojs/plugin-http/-/plugin-http-4.0.4.tgz#45b66b2659e060fe11a8e0a9c7a8f5e0ae2476b8"
-  integrity sha512-O0SyFKlTOaE8lsDUv/uQ1U43/WVkPv8jdfMiRdTs+m+GF50M8M31ILKTjYBivDpU71lxWjGbud6Bw4ncG+chxA==
-
 "@tarojs/plugin-platform-alipay@3.6.34":
   version "3.6.34"
   resolved "https://registry.yarnpkg.com/@tarojs/plugin-platform-alipay/-/plugin-platform-alipay-3.6.34.tgz#b6c7620e72d8dc0c6778eb52e50b9a24ab0e4637"
@@ -3621,7 +3616,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.13.0.tgz#d9b802e9bb9c248d7be5f7f5ef178dc3684e9dcc"
   integrity sha512-3AungXC4I8kKsS9PuS4JH2nc+0bVY/mjgrephHTIi8fpEeGsTHBUJeosp0Wc1myYMElmD0B3Oc4XL/HVJ4PV2g==
 
-axios@^1.6.8, axios@^1.7.2:
+axios@^1.6.8:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.2.tgz#b625db8a7051fbea61c35a3cbb3a1daa7b9c7621"
   integrity sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==

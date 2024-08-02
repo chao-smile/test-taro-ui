@@ -1,17 +1,20 @@
 import { View, Swiper, SwiperItem } from '@tarojs/components';
 import { AtButton } from 'taro-ui';
-import { navigateBack } from '@tarojs/taro';
+import { navigateBack, redirectTo, reLaunch } from '@tarojs/taro';
 import { useState, useEffect } from 'react';
-import { request } from '@/utils';
+import { get } from '@/utils';
 
 export default function About() {
   const [data, setData] = useState('');
 
   useEffect(() => {
-    request.get('/search/fileIn.txt').then((res) => {
-      console.log(res);
-      setData(JSON.stringify(res));
-    });
+    async function name() {
+      try {
+        const res = await get('/search/fileIn.txt');
+        console.log(res);
+      } catch (error) {}
+    }
+    name();
   }, []);
 
   return (
@@ -38,9 +41,13 @@ export default function About() {
       {data && <View>{data}</View>}
       <AtButton
         type="primary"
-        onClick={() => {
-          navigateBack({
-            delta: 1,
+        onClick={async () => {
+          // navigateBack({
+          //   delta: 1,
+          // });
+
+          await reLaunch({
+            url: '/pages/login/index',
           });
         }}
       >
